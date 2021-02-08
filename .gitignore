@@ -1,5 +1,4 @@
-!test/
-*.fastq
+*.sam
 data/
 
 # Byte-compiled / optimized / DLL files
