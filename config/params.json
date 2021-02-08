@@ -1,12 +1,11 @@
 {
     
-    "esbl_1" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/esbl/*_1.fastq.gz",
-    "esbl_2" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/esbl/*_2.fastq.gz",
-    "ctrl_1" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ctrl/*_1.fastq.gz",
-    "ctrl_2" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ctrl/*_2.fastq.gz",
+    "esbl_1" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/esbl/*_1.fastq",
+    "esbl_2" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/esbl/*_2.fastq",
+    "ctrl_1" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ctrl/*_1.fastq",
+    "ctrl_2" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ctrl/*_2.fastq",
     "subset_size" : 36,
-    "num_bootstraps" : 8,
-    "idx" : "...",
+    "idx" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ref/e_coli",
     "drop_bad_samples" : false,
     "adapter_sequence" : "AACCGGTT"
     

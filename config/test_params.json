@@ -1,14 +1,12 @@
 {
     
-    "esbl_1" : "/test/testdata/*_1.fastq.gz",
-    "esbl_2" : "/test/testdata/*_2.fastq.gz",
-    "ctrl_1" : "/test/...",
-    "ctrl_2" : "/test/...",
-    "subset_size" : 10,
-    "num_bootstraps" : 8,
-    "idx" : "/datasets/srp073813/reference/kallisto_transcripts.idx",
+    "esbl_1" : "test/esbl/*_1.fastq",
+    "esbl_2" : "test/esbl/*_2.fastq",
+    "ctrl_1" : "test/ctrl/*_1.fastq",
+    "ctrl_2" : "test/ctrl/*_1.fastq",
+    "subset_size" : 5,
+    "idx" : "/teams/DSC180A_FA20_A00/b04genetics/group_3/ref/e_coli",
     "drop_bad_samples" : false,
-    "adapter_sequence" : "AACCGGTT",
-    "fast_out_path" : "data/fastqc_results/"
+    "adapter_sequence" : "AACCGGTT"
     
 }

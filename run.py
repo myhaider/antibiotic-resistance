@@ -14,9 +14,12 @@ def main():
             
             # Test project
             dictionary = json.load(open("config/test_params.json"))
-            create_folders()
-           
+            folder_manager()
             fastqc(dictionary)
+            #cutadapt(dictionary)
+            bowtie2(dictionary)
+            sam_converter()
+            gatk(dictionary)
             return
         
         elif (args[1] == "clean"):
@@ -28,9 +31,12 @@ def main():
         dictionary = json.load(open("config/params.json"))
     
         #Full Project
-        create_folders()
-  
+        folder_manager()
         fastqc(dictionary)
+        #cutadapt(dictionary)
+        bowtie2(dictionary)
+        sam_converter()
+        gatk(dictionary)
         return
     
 if __name__ == '__main__':
