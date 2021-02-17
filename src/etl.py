@@ -89,6 +89,7 @@ def bowtie2_helper(grp,dictionary):
         
         command = f"bowtie2 --threads 4 -x {dictionary['idx']} -1 {s1} -2 {s2} -S data/samfiles/{s}.sam"
         os.system(command)
+        
     
 def sam_converter():
     samfiles = glob.glob("data/samfiles/*.sam")
@@ -98,9 +99,11 @@ def sam_converter():
         bamfile = sam.split('/')[-1].split('.sam')[0]
         convert = f"samtools view -S -b {sam} > data/bamfiles/{bamfile}.bam"
         sort = f"samtools sort data/bamfiles/{bamfile}.bam -o data/bamfiles/{bamfile}_sorted.bam"
+        #idx = f"samtools index /home/myhaider/antibiotic-resistance/data/bamfiles/{bamfile}_sorted.bam"
 
         os.system(convert)
         os.system(sort)
+        #os.system(idx)
     return
 
 def bowtie2(dictionary):
@@ -108,13 +111,23 @@ def bowtie2(dictionary):
     bowtie2_helper('ctrl',dictionary)
     return
     
+def picard(dictionary):
+    bamfiles = glob.glob("data/bamfiles/*_sorted.bam")
+    
+    for bam in bamfiles:
+        filename = bam.split("_")[0].split('/')[-1]
+        command = f"java -jar /opt/picard-tools-1.88/AddOrReplaceReadGroups.jar I={bam} O=data/bamfiles/{filename}_cleaned.bam RGID=4 RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=20"
+        os.system(command)
+    return
+    
 def gatk(dictionary):
     
-    bamfiles = glob.glob("data/bamfiles/*_sorted.bam")
+    bamfiles = glob.glob("data/bamfiles/*_cleaned.bam")
     for bam in bamfiles:
-        
-        b = bam.split("/")[-1].split('_sorted.')[0]
-        command = f"gatk --java-options '-Xmx4g' HaplotypeCaller -R {dictionary['idx']}.fasta -I {bam} -O data/gatk/{b}.g.vcf.gz"
+        idx = f"samtools index {bam}"
+        b = bam.split("/")[-1].split('_cleaned.')[0]
+        command = f"gatk --java-options '-Xmx4g' HaplotypeCaller --native-pair-hmm-threads 128 -R {dictionary['idx']}.fasta -I {bam} -O data/gatk/{b}.g.vcf.gz -ERC GVCF"
+        os.system(idx)
         os.system(command)
     return
         
