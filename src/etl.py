@@ -130,5 +130,35 @@ def gatk(dictionary):
         os.system(idx)
         os.system(command)
     return
+
+def snpEff(dictionary):   
+    vcffile = dictionary['vcf']
+    rename = f"cp {vcffile} data/snp/final.vcf"
+    replace = f"sed 's/{dictionary['Chromosome']}/Chromosome/g' 'data/snp/final.vcf' > data/snp/final.edited.vcf"
+    command = f"java -jar /opt/snpEff/snpEff.jar Escherichia_coli data/snp/final.edited.vcf > data/snp/final.snpeff.vcf"
+    os.system(rename)
+    os.system(replace)
+    os.system(command)
+    return
+
+def snpSift(dictionary):
+    cc = 'SnpSift caseControl "++++++++++++++++++++++++++++++++++++------------------------------------" data/snp/final.snpeff.vcf > data/snp/final.snpeff.cc.vcf'
+    filter1 = "cat  data/snp/final.snpeff.vcf |SnpSift filter '(ANN[*].IMPACT has 'HIGH') | (ANN[*].IMPACT has 'MODERATE')' >  data/snp/final.snpeff.imp.vcf"
+    filter2 = "cat  data/snp/final.snpeff.vcf |SnpSift filter '(GEN[0].GT has 1 & GEN[1].GT has 1 & GEN[2].GT has 1 & GEN[3].GT has 1 & GEN[4].GT has 1 & GEN[5].GT has 1 & GEN[6].GT has 1 & GEN[7].GT has 1 & GEN[8].GT has 1 & GEN[9].GT has 1 & GEN[10].GT has 1 & GEN[11].GT has 1 & GEN[12].GT has 1 & GEN[13].GT has 1 & GEN[14].GT has 1 & GEN[15].GT has 1 & GEN[16].GT has 1 & GEN[17].GT has 1 & GEN[18].GT has 1 & GEN[19].GT has 1 & GEN[20].GT has 1 & GEN[21].GT has 1 & GEN[22].GT has 1 & GEN[23].GT has 1 & GEN[24].GT has 1 & GEN[25].GT has 1 & GEN[26].GT has 1 & GEN[27].GT has 1 & GEN[28].GT has 1 & GEN[29].GT has 1 & GEN[30].GT has 1 & GEN[31].GT has 1 & GEN[32].GT has 1 & GEN[33].GT has 1 & GEN[34].GT has 1 & GEN[35].GT has 1) & (GEN[36].GT has 0 | GEN[37].GT has 0 | GEN[38].GT has 0 | GEN[39].GT has 0 | GEN[40].GT has 0 | GEN[41].GT has 0 | GEN[42].GT has 0 | GEN[43].GT has 0 | GEN[44].GT has 0 | GEN[45].GT has 0 | GEN[46].GT has 0 | GEN[47].GT has 0 | GEN[48].GT has 0 | GEN[49].GT has 0 | GEN[50].GT has 0 | GEN[51].GT has 0 | GEN[52].GT has 0 | GEN[53].GT has 0 | GEN[54].GT has 0 | GEN[55].GT has 0 | GEN[56].GT has 0 | GEN[57].GT has 0 | GEN[58].GT has 0 | GEN[59].GT has 0 | GEN[60].GT has 0 | GEN[61].GT has 0 | GEN[62].GT has 0 | GEN[63].GT has 0 | GEN[64].GT has 0 | GEN[65].GT has 0 | GEN[66].GT has 0 | GEN[67].GT has 0 | GEN[68].GT has 0 | GEN[69].GT has 0 | GEN[70].GT has 0 | GEN[71].GT has 0)' >  data/snp/final.snpeff.fff.vcf"
+    ext1 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ANN[*].ALLELE" > data/snp/ale.txt'
+    ext2 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ANN[*].EFFECT" > data/snp/eff.txt'
+    ext3 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ID" "ANN[*].GENE" > data/snp/gene.txt'
+    ext4 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ID" "ANN[*].GENEID" > data/snp/gid.txt'
+    ext5 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ID" "ANN[*].FEATUREID" > data/snp/ft.txt'
+    ext6 = 'SnpSift extractFields data/snp/final.snpeff.fff.vcf "CHROM" "POS" "ID" "REF" "ALT" "FILTER" > data/snp/ba.txt'
+    #os.system(cc)
+    #os.system(filter1)
+    os.system(filter2)
+    os.system(ext1)
+    os.system(ext2)
+    os.system(ext3)
+    os.system(ext4)
+    os.system(ext5)
+    os.system(ext6)
         
         

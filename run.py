@@ -14,12 +14,12 @@ def main():
             
             # Test project
             dictionary = json.load(open("config/test_params.json"))
-            #folder_manager()
-            #fastqc(dictionary)
-            #cutadapt(dictionary)
-            #bowtie2(dictionary)
-            #sam_converter()
-            #picard(dictionary)
+            folder_manager()
+            fastqc(dictionary)
+            cutadapt(dictionary)
+            bowtie2(dictionary)
+            sam_converter()
+            picard(dictionary)
             gatk(dictionary)
             return
         
@@ -34,10 +34,12 @@ def main():
         #Full Project
         folder_manager()
         fastqc(dictionary)
-        #cutadapt(dictionary)
+        cutadapt(dictionary)
         bowtie2(dictionary)
         sam_converter()
         gatk(dictionary)
+        snpEff(dictionary)
+        snpSift(dictionary)
         return
     
 if __name__ == '__main__':
